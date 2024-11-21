@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 import { dbConnection } from "./database/dbConnection.js";
-
+//MONGO_URI=mongodb+srv://nehak:12345@cluster0.psyubpu.mongodb.net/?retryWrites=true
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import messageRouter from "./router/messageRouter.js";
 import userRouter from "./router/userRouter.js";
@@ -17,14 +17,14 @@ config({ path: "./config/config.env" });
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
-    method: ["GET", "POST", "PUT","DELETE"],
+    methods: ["GET", "POST", "PUT","DELETE"],
     credentials: true,
   })
 );
 
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());//can get cookie
+app.use(express.json());// data comes in json format , for passing as string
+app.use(express.urlencoded({ extended: true }));//fro recoganizing data
 
 app.use(
   fileUpload({
